@@ -1,12 +1,15 @@
 import useNoticias from '../hooks/useNoticias';
 import Noticia from './Noticia';
-import Box from '@mui/material/Box';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 import Spinner from './Spinner';
 
 const Noticias = () => {
   
-  const { noticias, cargando } = useNoticias();
+  const { noticias, cargando, totalNoticias, handleChangePagina, pagina } = useNoticias();
+  
+  const totalPaginas = Math.ceil(totalNoticias / 20);
   
   return (
     <>
@@ -22,6 +25,16 @@ const Noticias = () => {
           }
         </Grid>
       }
+      <Stack spacing={2} marginTop={5}>
+        <Pagination 
+          count={totalPaginas} 
+          variant="outlined" 
+          shape="rounded" 
+          color="primary"
+          onChange={handleChangePagina}
+          page={pagina}
+        />
+      </Stack>
     </>
   )
 }
